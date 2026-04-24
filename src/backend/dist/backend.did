@@ -1,0 +1,77 @@
+type http_request_result = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type http_header = 
+ record {
+   name: text;
+   value: text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserId = principal;
+type TransformationOutput = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type TransformationInput = 
+ record {
+   context: blob;
+   response: http_request_result;
+ };
+type Timestamp = int;
+type ProcessingStatus = 
+ variant {
+   complete;
+   failed;
+   pending;
+   processing;
+ };
+type NoteId = nat;
+type Note = 
+ record {
+   content: text;
+   createdAt: Timestamp;
+   id: NoteId;
+   owner: UserId;
+   wordCount: nat;
+ };
+type DashboardStats = 
+ record {
+   totalNotes: nat;
+   totalWordsAnalyzed: nat;
+ };
+type CreateNoteRequest = record {content: text;};
+type AiResult = 
+ record {
+   detailedSummary: text;
+   keywords: vec text;
+   mediumSummary: text;
+   noteId: NoteId;
+   processedAt: Timestamp;
+   shortSummary: text;
+ };
+service : {
+  _initializeAccessControl: () -> ();
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  createNote: (req: CreateNoteRequest) -> (Note);
+  deleteNote: (id: NoteId) -> (bool);
+  getAiResult: (noteId: NoteId) -> (opt AiResult) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getDashboardStats: () -> (DashboardStats) query;
+  getNote: (id: NoteId) -> (opt Note) query;
+  getProcessingStatus: (noteId: NoteId) -> (opt ProcessingStatus) query;
+  isCallerAdmin: () -> (bool) query;
+  listNotes: () -> (vec Note) query;
+  setOpenAiKey: (key: text) -> ();
+  transform: (input: TransformationInput) -> (TransformationOutput) query;
+  triggerAiAnalysis: (noteId: NoteId) -> ();
+}

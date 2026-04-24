@@ -1,0 +1,27 @@
+{
+  "overview": "AI Notes Analyzer is an intelligent study assistant that transforms raw student notes into structured study material. It automatically generates summaries at three detail levels, extracts key concepts, and organizes everything in a clean dashboard — helping students study faster and more effectively.",
+  "features": [
+    "Secure login via Internet Identity",
+    "Paste or type notes for instant AI analysis",
+    "Three-level AI summarization: short, medium, and detailed",
+    "Automatic keyword and concept extraction",
+    "Dashboard with all saved notes, search, and sorting",
+    "Note detail view with original text, summaries, and keyword tags",
+    "AI processing status indicators (real-time feedback)",
+    "Delete notes with confirmation",
+    "Study stats: total notes and words analyzed"
+  ],
+  "category": "productivity",
+  "tags": [
+    "study",
+    "ai",
+    "notes",
+    "summarization",
+    "education",
+    "students",
+    "productivity",
+    "keywords",
+    "academic"
+  ],
+  "last_updated": "2026-04-24T08:05:32.396Z"
+}

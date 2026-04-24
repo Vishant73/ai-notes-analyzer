@@ -1,0 +1,67 @@
+// Version: 1.0.0
+type AiResult__768897297 =
+  {
+    detailedSummary : Text;
+    keywords : [Text];
+    mediumSummary : Text;
+    noteId : NoteId__167160349;
+    processedAt : Timestamp__301639476;
+    shortSummary : Text
+  };
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type NoteId__167160349 = Nat;
+type Note__1063160515 =
+  {
+    content : Text;
+    createdAt : Timestamp__301639476;
+    id : NoteId__167160349;
+    owner : UserId__158757552;
+    wordCount : Nat
+  };
+type ProcessingState__288962905 =
+  {
+    noteId : NoteId__167160349;
+    status : ProcessingStatus__758260920;
+    updatedAt : Timestamp__301639476
+  };
+type ProcessingStatus__758260920 =
+  {#complete; #failed; #pending; #processing};
+type Timestamp__301639476 = Int;
+type UserId__158757552 = Principal;
+type UserRole__1073662873 = {#admin; #guest; #user};
+actor {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__1073662873>
+    };
+  stable aiResultStore :
+    {
+      var root : Node__46230540<NoteId__167160349, AiResult__768897297>;
+      var size : Nat__490723111
+    };
+  stable noteCounter : {var value : Nat};
+  stable notesStore :
+    {
+      var root : Node__46230540<NoteId__167160349, Note__1063160515>;
+      var size : Nat__490723111
+    };
+  stable openAiKeyRef : {var value : Text};
+  stable processingStore :
+    {
+      var root : Node__46230540<NoteId__167160349, ProcessingState__288962905>;
+      var size : Nat__490723111
+    }
+};
